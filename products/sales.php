@@ -5,33 +5,47 @@ include '../config/db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_id = intval($_POST['product_id']);
     $quantity = intval($_POST['quantity']);
-    $customer = htmlspecialchars(trim($_POST['customer']));
+    $customer_id = intval($_POST['customer_id']);
 
     // Check available stock
     $result = $conn->query("SELECT quantity FROM products WHERE id = $product_id");
     $product = $result->fetch_assoc();
 
     if ($product && $product['quantity'] >= $quantity) {
-        // Insert into sales table
-        $conn->query("INSERT INTO sales (product_id, quantity_sold, customer_name) VALUES ($product_id, $quantity, '$customer')");
+        // Insert into sales table using customer_id
+        $conn->query("INSERT INTO sales (product_id, quantity_sold, customer_id, sale_date) VALUES ($product_id, $quantity, $customer_id, NOW())");
+
         // Update product quantity
         $conn->query("UPDATE products SET quantity = quantity - $quantity WHERE id = $product_id");
+
         $success = "Sale recorded successfully.";
     } else {
         $error = "Insufficient stock.";
     }
 }
 
+$customerResult = $conn->query("SELECT customer_id, name FROM customers");
+
+
 // Fetch products for dropdown
 $products = $conn->query("SELECT id, name FROM products");
 
 // Fetch all sales
 $sales = $conn->query("
-    SELECT s.id, p.name AS product_name, s.quantity_sold, s.customer_name, s.sale_date 
+    SELECT 
+        s.id, 
+        p.name AS product_name, 
+        s.quantity_sold, 
+        COALESCE(c.name, s.customer_name) AS customer_name, 
+        s.sale_date 
     FROM sales s 
     JOIN products p ON s.product_id = p.id
+    LEFT JOIN customers c ON s.customer_id = c.customer_id
     ORDER BY s.sale_date DESC
 ");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +111,16 @@ $sales = $conn->query("
 
                     <div class="form-group">
                         <label for="customer">Customer Name</label>
-                        <input type="text" name="customer" id="customer" class="form-control" required placeholder="Enter customer name">
+                       <select name="customer_id" id="customer_id" class="form-control" required>
+                            <option value="">Select Customer</option>
+                            <?php
+                            $customerResult = $conn->query("SELECT customer_id, name FROM customers");
+                            while ($customer = $customerResult->fetch_assoc()):
+                            ?>
+                                <option value="<?= $customer['customer_id'] ?>"><?= htmlspecialchars($customer['name']) ?></option>
+                            <?php endwhile; ?>
+                    </select>
+
                     </div>
                 </div>
 

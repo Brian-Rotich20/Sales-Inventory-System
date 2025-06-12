@@ -35,8 +35,9 @@ include '../config/db.php'; // DB connection
             $totalProductsResult = $conn->query("SELECT COUNT(*) AS total FROM products");
             $totalProducts = $totalProductsResult->fetch_assoc()['total'];
 
-            $totalCategoriesResult = $conn->query("SELECT COUNT(DISTINCT category) AS total FROM products");
+            $totalCategoriesResult = $conn->query("SELECT COUNT(*) AS total FROM categories");
             $totalCategories = $totalCategoriesResult->fetch_assoc()['total'];
+
 
             $totalQuantityResult = $conn->query("SELECT SUM(quantity) AS total FROM products");
             $totalQuantity = $totalQuantityResult->fetch_assoc()['total'];
