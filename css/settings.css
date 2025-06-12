@@ -1,0 +1,67 @@
+/* Wrapper to hold sidebar + content */
+.main-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: #f9fafb;
+}
+
+/* Content area beside sidebar */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    margin-left: 250px; /* Width of sidebar */
+    transition: margin-left 0.3s ease;
+}
+
+/* Adjust padding for small screens */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
+
+.settings-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+.settings-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.settings-container button {
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.settings-container img {
+    margin: 10px 0;
+}
+
+
+/* Profile photo overview */
+.profile-photo-preview {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-bottom: 10px;
+    display: block;
+}
+.status-msg{
+    color: green;
+}

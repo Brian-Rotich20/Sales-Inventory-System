@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $qty = $_POST['quantity'];
     $price = $_POST['price'];
     $conn->query("UPDATE products SET name='$name', quantity=$qty, price=$price WHERE id=$id");
-    header("Location: ../index.php");
+    header("Location: ../products/AllProducts.php");
 }
 ?>
 <form method="post">

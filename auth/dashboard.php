@@ -1,4 +1,6 @@
-<?php include '../config/db.php'; ?>
+<?php
+include '../config/db.php'; // DB connection
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +10,7 @@
     <title>Inventory System - Dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sidebar.css">
-    <!-- <link rel="stylesheet" href="../css/alert.css"> -->
+    <link rel="stylesheet" href="../css/alert.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -42,50 +44,43 @@
             $lowStockThreshold = 5;
             $lowStockResult = $conn->query("SELECT COUNT(*) AS total FROM products WHERE quantity < $lowStockThreshold");
             $lowStockCount = $lowStockResult->fetch_assoc()['total'];
+
+            
         ?>
        <!-- Add this greeting section before the stats-container -->
  
-   <div class="home-container">
-    <div class="greeting">
-        <!-- Greeting Content Section -->
-        <!-- <div class="greeting-content">
-            <div class="greeting-image">
-                <img src="../assets/greetings.png" alt="Welcome Dashboard" />
-            </div>
+<div class="home-container">
+        <div class="greeting">
             <div class="greeting-text">
-                <h2>Welcome back, <span class="user-name"><?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin' ?></span>!</h2>
+                       <h2>Welcome back!</h2> 
+         <!-- <h2>Welcome back, <span class="user-name"><?= htmlspecialchars($username) ?></span></h2> -->
+
                 <p>Here's your inventory overview for today</p>
                 <div class="greeting-time">
-                    <i class="fas fa-clock"></i>
-                    <span id="current-time"></span>
+                    <i class="fas fa-clock"></i> <span id="current-time"></span>
                 </div>
             </div>
-        </div> -->
+        </div>
 
-        <!-- Stats Container Section -->
         <div class="stats-container">
             <div class="stat-card green">
                 <h3><i class="fas fa-boxes"></i> Total Products</h3>
                 <p><?= $totalProducts ?></p>
             </div>
-
             <div class="stat-card blue">
                 <h3><i class="fas fa-tags"></i> Total Categories</h3>
                 <p><?= $totalCategories ?></p>
             </div>
-
             <div class="stat-card orange">
                 <h3><i class="fas fa-warehouse"></i> Total Stock</h3>
                 <p><?= $totalQuantity ?></p>
             </div>
-
             <div class="stat-card red">
                 <h3><i class="fas fa-exclamation-triangle"></i> Low Stock</h3>
                 <p><?= $lowStockCount ?></p>
             </div>
         </div>
     </div>
-</div>
 
         <?php
             // Fetch sales summary for pie chart

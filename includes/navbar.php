@@ -15,16 +15,11 @@
     <span id="date-time"></span>
   </div>
 
-  <div class="nav-right">
+  <div class="nav-right"> 
     <i class="fas fa-bell notification-icon"></i>
     
     <div class="user-dropdown">
       <img src="../assets/profile.jpg" alt="User" class="user-avatar" onclick="toggleDropdown()">
-      <!-- <div class="dropdown-content" id="dropdown">
-        <a href="">Profile</a>
-        <a href="#">Settings</a>
-        <a href="#">Logout</a>
-      </div> -->
     </div>
 
     <button class="mode-toggle" onclick="toggleMode()">

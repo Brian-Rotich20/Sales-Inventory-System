@@ -1,0 +1,232 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --text-color: #2c3e50;
+    --muted-text: #7f8c8d;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo i {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.brand-text h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+
+.brand-text p {
+    font-size: 12px;
+    color: var(--muted-text);
+    font-weight: 500;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    color: var(--muted-text);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+/* Features Section */
+.features {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.features h3 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--text-color);
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.feature-icon i {
+    font-size: 28px;
+    color: var(--white);
+}
+
+.feature-card h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: var(--muted-text);
+    font-size: 16px;
+}
+
+/* Footer */
+.footer {
+    background: var(--text-color);
+    color: var(--white);
+    text-align: center;
+    padding: 40px 0;
+}
+
+.footer p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hero h2 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 200px;
+        justify-content: center;
+    }
+}

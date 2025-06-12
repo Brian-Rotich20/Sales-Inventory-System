@@ -1,0 +1,311 @@
+/* Product Content Styling - Works with Modern Sidebar */
+
+/* Main Product Content Container */
+.main-product-content {
+    display: flex;
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+.products-sideabar {
+    flex-shrink: 0;
+    width: 280px;
+}
+
+.product-details {
+    flex: 1;
+    background: #ffffff;
+    margin: 20px;
+    margin-left: 0;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+/* Content Wrapper */
+.product-details > div {
+    margin-left: 0 !important;
+    padding: 30px !important;
+}
+
+/* Header Section */
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.product-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* Add Product Button */
+.btn.add {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn.add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.btn.add::before {
+    content: '+ ';
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: none !important;
+}
+
+table th {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    padding: 18px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+table th:first-child {
+    padding-left: 24px;
+}
+
+table th:last-child {
+    padding-right: 24px;
+}
+
+table td {
+    padding: 16px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    border-left: none;
+    border-right: none;
+}
+
+table td:first-child {
+    padding-left: 24px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+table td:last-child {
+    padding-right: 24px;
+}
+
+table tr:hover {
+    background: #f8fafc;
+    transition: background-color 0.2s ease;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Action Buttons */
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.btn.edit {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn.edit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.btn.delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn.delete:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .products-sideabar {
+        width: 260px;
+    }
+    
+    .product-details {
+        margin: 15px;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-product-content {
+        flex-direction: column;
+    }
+    
+    .products-sideabar {
+        width: 100%;
+        height: auto;
+    }
+    
+    .product-details {
+        margin: 15px;
+        margin-top: 0;
+    }
+    
+    .product-details > div {
+        padding: 20px !important;
+    }
+    
+    .product-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .product-title {
+        font-size: 1.5rem;
+    }
+    
+    /* Make table responsive */
+    table {
+        font-size: 0.85rem;
+    }
+    
+    table th,
+    table td {
+        padding: 12px 8px;
+    }
+    
+    table th:first-child,
+    table td:first-child {
+        padding-left: 12px;
+    }
+    
+    table th:last-child,
+    table td:last-child {
+        padding-right: 12px;
+    }
+    
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        margin-right: 6px;
+        margin-bottom: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-details > div {
+        padding: 15px !important;
+    }
+    
+    .product-title {
+        font-size: 1.3rem;
+    }
+    
+    /* Stack table content on very small screens */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .btn {
+        display: block;
+        margin-bottom: 8px;
+        margin-right: 0;
+        text-align: center;
+    }
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-details {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+table tr {
+    animation: fadeInUp 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+table tr:nth-child(1) { animation-delay: 0.1s; }
+table tr:nth-child(2) { animation-delay: 0.15s; }
+table tr:nth-child(3) { animation-delay: 0.2s; }
+table tr:nth-child(4) { animation-delay: 0.25s; }
+table tr:nth-child(5) { animation-delay: 0.3s; }

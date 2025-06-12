@@ -45,7 +45,7 @@ $id = $_GET['id']; // Show confirmation form
         }
 
         .btn.confirm {
-            background-color: #f44336; /* red */
+            background-color:rgb(223, 29, 15); /* red */
         }
 
         .btn.cancel {
@@ -60,7 +60,7 @@ $id = $_GET['id']; // Show confirmation form
     <form method="post">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <button type="submit" class="btn confirm">Yes, Delete</button>
-        <a href="../auth/dashboard.php" class="btn cancel">Cancel</a>
+        <a href="../products/AllProducts.php" class="btn cancel">Cancel</a>
     </form>
 </div>
 

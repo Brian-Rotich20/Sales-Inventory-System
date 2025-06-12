@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="confirm" placeholder="Confirm Password" required style="width: 100%; padding: 10px; margin-bottom: 20px;"><br>
             <input type="submit" value="Register" style="width: 100%; background-color: #28a745; color: white; border: none; padding: 12px; cursor: pointer;">
         </form>
+        
     </div>
 
 </body>

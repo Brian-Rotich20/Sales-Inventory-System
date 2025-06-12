@@ -43,8 +43,123 @@ body.dark-mode .chart-box {
 /*  */
 
 /* Dashboard Stats Cards with greetings */
-/* Home Container */
+/* Reset + Layout Base */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
+.content {
+    margin-left: 220px; /* same as your sidebar width */
+    padding: 20px;
+    transition: margin 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .toggle-btn {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: #111;
+        color: #fff;
+        border: none;
+        font-size: 20px;
+        z-index: 1001;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        z-index: 1000;
+        display: none;
+    }
+}
+
+/* Greeting Section */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: -15px;
+}
+
+.greeting {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.greeting-text h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.user-name {
+    color: #007bff;
+}
+
+.greeting-time {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Stats Container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: -30px;
+}
+
+.stat-card {
+    background-color: #ffffff;
+    padding: 10px;
+    border-left: 6px solid;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.stat-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.green { border-color: #28a745; }
+.blue { border-color: #007bff; }
+.orange { border-color: #fd7e14; }
+.red { border-color: #dc3545; }
+
+@media screen and (max-width: 768px) {
+    .greeting {
+        flex-direction: column;
+        text-align: center;
+    }
+}
 
 /* Headings */
 h1 {
@@ -64,7 +179,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .chart-box {
@@ -411,3 +526,4 @@ textarea:focus {
         min-width: 300px;
     }
 }
+

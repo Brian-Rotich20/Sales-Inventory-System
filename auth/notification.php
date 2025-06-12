@@ -5,6 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/alert.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/sales.css">
+    
+    
     <title>Stock Notifications</title>
 
 </head>
@@ -20,6 +25,10 @@
         $expiringProducts = $conn->query($expiryWarningQuery);
         ?>
         <!-- Alerts & Actions -->
+
+<?php include '../includes/sidebar.php'; ?>
+    <div class="main-content">
+        
 <div class="alerts-section">
     <div class="alert-card">
         <h3 style="margin-bottom: 20px; color: #333;">Critical Alerts</h3>
@@ -85,6 +94,10 @@
         </div>
     </div>
 </div>
+               <div>
+                
+               </div> 
+    </div>
 
 </body>
 </html>

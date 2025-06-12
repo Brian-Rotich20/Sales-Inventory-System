@@ -8,13 +8,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory System</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
     <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-      <?php include '../includes/sidebar.php'; ?>
-      <div style="margin-left: 220px; padding: 20px;">
+    <div class="main-product-content">
+        <div class="products-sideabar">
+             <?php include '../includes/sidebar.php'; ?>
+        </div>
+        <div class="product-details">
+             <div style="margin-left: 220px; padding: 20px;">
      <a href="../products/add.php" class='btn add'>Add Products</a>
     <table border="1">
         <tr>
@@ -42,6 +47,10 @@
         ?>
     </table>
       </div>
+        </div>
+    </div>
+     
+     
 </body>
 </html>
    
