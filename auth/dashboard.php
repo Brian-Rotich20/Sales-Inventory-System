@@ -1,5 +1,22 @@
 <?php
 include '../config/db.php'; // DB connection
+session_start();
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit();
+}
+
+$userId = $_SESSION['user_id']; // The ID is already in your session
+
+include('../config/db.php'); // connect to db
+
+$stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$user = $stmt->get_result()->fetch_assoc();
+
+$username = $user['username']
 ?>
 
 <!DOCTYPE html>
@@ -53,16 +70,13 @@ include '../config/db.php'; // DB connection
 <div class="home-container">
         <div class="greeting">
             <div class="greeting-text">
-                       <h2>Welcome back!</h2> 
-         <!-- <h2>Welcome back, <span class="user-name"><?= htmlspecialchars($username) ?></span></h2> -->
-
-                <p>Here's your inventory overview for today</p>
+               <h2>Welcome back, <?= ucfirst(htmlspecialchars($username)) ?>!</h2>
+                <p>Here’s your inventory overview for today</p>
                 <div class="greeting-time">
                     <i class="fas fa-clock"></i> <span id="current-time"></span>
                 </div>
             </div>
         </div>
-
         <div class="stats-container">
             <div class="stat-card green">
                 <h3><i class="fas fa-boxes"></i> Total Products</h3>

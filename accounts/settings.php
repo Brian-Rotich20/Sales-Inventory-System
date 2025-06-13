@@ -1,128 +1,115 @@
 <?php
+session_start();
 include '../config/db.php';
-session_start(); // This was commented out - needs to be active
 
-// Get user ID from session
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
-$username = $email = $profile_photo = '';
-$message = "";
-
-// Get user data
-$stmt = $conn->prepare("SELECT username, email, profile_photo FROM users WHERE id = ?");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-$stmt->close();
-
-// Check if user was found
-if (!$user) {
-    // Handle case where user doesn't exist
-    $message = "User not found.";
-    $user = ['username' => '', 'email' => '', 'profile_photo' => '']; // Default values
-} else {
-    // Set variables from user data
-    $username = $user['username'];
-    $email = $user['email'];
-    $profile_photo = $user['profile_photo'];
+if (!isset($_SESSION['user_id'])) {
+header("Location: ../auth/login.php");
+exit();
 }
+$userId = $_SESSION['user_id']; // Assuming user_id is stored in session after login
+$message = '';
+$username = '';
+$email = '';
+$profile_photo = '';
 
-// Handle form submission
+// Retrieve existing data first (so we can show it in form and fallback photo if not changed).
+$stmt = $conn->prepare("SELECT username, email, profile_photo FROM users WHERE id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$user = $stmt->get_result()->fetch_assoc();
+
+$username = $user['username']; 
+$email = $user['email']; 
+$profile_photo = $user['profile_photo']; 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $image_name = $user['profile_photo'] ?? ''; // Use null coalescing operator
-
-    // Handle image upload
-    if (!empty($_FILES['profile_photo']['name'])) {
-        $target_dir = "../uploads/";
-        
-        // Create uploads directory if it doesn't exist
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir, 0777, true);
-        }
-        
-        $image_name = time() . '_' . basename($_FILES['profile_photo']['name']);
-        $target_file = $target_dir . $image_name;
-
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if (in_array($imageFileType, $allowed)) {
-            if (move_uploaded_file($_FILES["profile_photo"]["tmp_name"], $target_file)) {
-                // File uploaded successfully
-            } else {
-                $message = "Failed to upload image!";
-                $image_name = $user['profile_photo'] ?? ''; // fallback to old
-            }
+    $email = trim($_POST['email']); 
+    $new_pass = trim($_POST['password']); 
+    $confirm_pass = trim($_POST['confirm_pass']); 
+    $image_name = $profile_photo; // fallback to existing photo
+    
+    // Handle photo if uploaded...
+    if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] == 0) {
+        $image_name = time() . '-' . basename($_FILES['profile_photo']['name']); 
+        move_uploaded_file($_FILES['profile_photo']['tmp_name'], "../uploads/" . $image_name);
+    }
+    
+    // Prepare base SQL first
+    $query = "UPDATE users SET username = ?, email = ?, profile_photo = ?";
+    $types = "sss";
+    $params = [$username, $email, $image_name];
+    
+    // If password is provided and match
+    if (!empty($new_pass)) {
+        if ($new_pass !== $confirm_pass) {
+            $message = "Passwords do not match.";
         } else {
-            $message = "Invalid image type! Only JPG, JPEG, PNG & GIF files are allowed.";
-            $image_name = $user['profile_photo'] ?? ''; // fallback to old
+            $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
+            $query .= ", password = ?";
+            $types .= "s";
+            $params[] = $hashed_pass;
         }
     }
+    
+    $query .= " WHERE id = ?";
+    $types .= "i";
+    $params[] = $userId;
 
-    // Update the database only if user exists
-    if ($user) {
-        $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, profile_photo = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $username, $email, $image_name, $user_id);
+    if (empty($message)) { // proceed only if no password match issues
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param($types, ...$params);
         
         if ($stmt->execute()) {
             $message = "Profile updated successfully.";
-            // Update the user array with new values
-            $user['username'] = $username;
-            $user['email'] = $email;
-            $user['profile_photo'] = $image_name;
-            // Update display variables
-            $profile_photo = $image_name;
         } else {
             $message = "Failed to update profile.";
         }
-        $stmt->close();
     }
 }
+
 ?>
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="../css/settings.css">
-     <link rel="stylesheet" href="../css/sidebar.css">
-    <title>Settings Page</title>
+<meta charset="UTF-8">
+<title>Settings</title>
+<link rel="stylesheet" href="../css/settings.css">
+<link rel="stylesheet" href="../css/sidebar.css">
+<link rel="stylesheet" href="../css/sales.css">
 </head>
 <body>
-    <div class="main-wrapper">
-        <?php include '../includes/sidebar.php'; ?>
 
-        <main class="main-content">
-            <div class="settings-container">
-                <h2>Account Settings</h2>
-                <?php if (!empty($message)) echo "<p class='status-msg'>" . htmlspecialchars($message) . "</p>"; ?>
+<?php include '../includes/sidebar.php'; ?>
+ <div class="main-wrapper">
+    
+    <p><?= htmlspecialchars($message) ?></p>
+    <main class="main-content">
+        <h2>Account Settings</h2>
+    <form action="settings.php" method="POST" enctype="multipart/form-data">
+        <label>Username</label>
+        <input name="username" value="<?= htmlspecialchars($username) ?>" required>
 
-                <form action="settings.php" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" value="<?= htmlspecialchars($username) ?>" required>
-                    </div>
+        <label>Email</label>
+        <input name="email" type="email" value="<?= htmlspecialchars($email) ?>" required>
 
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
-                    </div>
+        <label for="password">New Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter new password if you want to change it">
 
-                    <div class="form-group">
-                        <label>Profile Photo</label><br>
-                        <?php if (!empty($profile_photo)): ?>
-                            <img src="../uploads/<?= htmlspecialchars($profile_photo) ?>" alt="Profile" class="profile-photo-preview">
-                        <?php endif; ?>
-                        <input type="file" name="profile_photo" accept="image/*">
-                    </div>
+        <label for="confirm_pass">Confirm Password</label>
+        <input id="confirm_pass" name="confirm_pass" type="password" placeholder="Confirm new password">
 
-                    <button type="submit" class="btn save">Save Changes</button>
-                </form>
-            </div>
-        </main>
-    </div>
+
+        <label>Profile Photo</label>
+        <?php if ($profile_photo): ?>
+            <img src="../uploads/<?= htmlspecialchars($profile_photo) ?>" alt="Profile photo" style="width:100px;height:100px;"><br>
+        <?php endif; ?>
+        <input name="profile_photo" type="file" accept="image/*">
+    
+        <br><br>
+        <input type="submit" value="Save">
+    </form>
+    </main>
+</div>
 </body>
 </html>

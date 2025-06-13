@@ -21,6 +21,8 @@
         <div class="product-details">
              <div style="margin-left: 220px; padding: 20px;">
      <a href="../products/add.php" class='btn add'>Add Products</a>
+    <a href="../products/export.php" class='btn export'>Export to CSV</a>
+
     <table border="1">
         <tr>
             <th>ID</th>

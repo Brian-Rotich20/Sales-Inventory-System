@@ -50,9 +50,14 @@ $result = $conn->query("SELECT * FROM customers");
 </form>
 
 <div class="export-btns">
-    <button onclick="window.location.href='export_csv.php'">Export to CSV</button>
-    <button onclick="window.location.href='export_pdf.php'">Export to PDF</button>
+    <button onclick="window.location.href='../products/export.php?type=customers'" class="btn export">
+        Export to CSV
+    </button>
+    <button onclick="window.location.href='../products/export.php?type=customers'" class="btn export">
+        Export to PDF
+    </button>
 </div>
+
 
 <h2>Customer List</h2>
 <table>

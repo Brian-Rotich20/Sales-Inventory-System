@@ -1,67 +1,108 @@
-/* Wrapper to hold sidebar + content */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #2c3e50;
+    background: #f5f6fa;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    padding: 20px;
+    /* background: #0984e3; */
+    color: #ffffff;
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
 .main-wrapper {
     display: flex;
-    min-height: 100vh;
-    background: #f9fafb;
+    padding: 20px;
+    gap: 20px;
 }
 
-/* Content area beside sidebar */
 .main-content {
     flex: 1;
-    padding: 40px;
-    margin-left: 250px; /* Width of sidebar */
-    transition: margin-left 0.3s ease;
-}
-
-/* Adjust padding for small screens */
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: 0;
-        padding: 20px;
-    }
-}
-
-
-.settings-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px -5px #0003;
     max-width: 500px;
     margin: 0 auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
 }
 
-.settings-container input {
+.main-content p {
+    color: #e74c3c;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.main-content form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.main-content form input[type="username"],
+.main-content form input[type="text"],
+.main-content form input[type="email"],
+.main-content form input[type="password"],
+.main-content form input[type="file"] {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #2c3e50;
+    background: #edf2f7;
+    transition: all 0.3s ease;
 }
 
-.settings-container button {
-    background: #3498db;
-    color: white;
-    padding: 10px 20px;
+.main-content form input:focus {
+    outline: none;
+    border: 1px solid #0984e3;
+    background: #ffffff;
+    box-shadow: 0 0 5px #0984e380;
+}
+
+.main-content form img {
+    display: block;
+    margin-bottom: 20px;
+    max-width: 100px;
+    border-radius: 50%;
+    border: 3px solid #0984e3;
+}
+
+.main-content form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #0984e3;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: 500;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
     cursor: pointer;
 }
 
-.settings-container img {
-    margin: 10px 0;
+.main-content form input[type="submit"]:hover {
+    background: #74b9ff;
 }
 
-
-/* Profile photo overview */
-.profile-photo-preview {
-    height: 80px;
-    width: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    margin-bottom: 10px;
-    display: block;
-}
-.status-msg{
-    color: green;
+@media (max-width: 600px) {
+    .main-wrapper {
+        flex-direction: column;
+        padding: 10px;
+    }
+    h2 {
+        font-size: 1.5em;
+        padding: 15px;
+    }
+    .main-content {
+        padding: 20px;
+    }
 }

@@ -53,32 +53,34 @@ $categories = $conn->query("SELECT category_id, name FROM categories");
     <?php if (!empty($error)): ?>
         <div class="error"><?= $error ?></div>
     <?php endif; ?>
+    <div class="main-content">
+         <form method="post" class="form-container">
+        <h2>Add Product</h2>
+        <label>Name:</label>
+        <input type="text" name="name" required><br>
+        
+        <label>Quantity:</label>
+        <input type="number" name="quantity" required><br>
 
-<form method="post" class="form-container">
-    <h2>Add Product</h2>
-    <label>Name:</label>
-    <input type="text" name="name" required><br>
-    
-    <label>Quantity:</label>
-    <input type="number" name="quantity" required><br>
-
-    <label for="category_id">Category</label><br>
-        <select name="category_id" required>
-            <option value="">-- Select Category --</option>
-            <?php
-            $cat_res = $conn->query("SELECT * FROM categories");
-            while ($cat = $cat_res->fetch_assoc()) {
-                echo "<option value='{$cat['id']}'>{$cat['name']}</option>";
-            }
-            ?>
-        </select>
+        <label for="category_id">Category</label><br>
+            <select name="category_id" required>
+                <option value="">-- Select Category --</option>
+                <?php
+                $cat_res = $conn->query("SELECT * FROM categories");
+                while ($cat = $cat_res->fetch_assoc()) {
+                    echo "<option value='{$cat['id']}'>{$cat['name']}</option>";
+                }
+                ?>
+            </select>
 
 
-    <label>Price:</label>
-    <input type="number" step="0.01" name="price" required><br>
-    
-    <input type="submit" value="Add Product" class="btn add">
-</form>
+        <label>Price:</label>
+        <input type="number" step="0.01" name="price" required><br>
+        
+        <input type="submit" value="Add Product" class="btn add">
+    </form>
 
+    </div>
+   
 </body>
 </html>
